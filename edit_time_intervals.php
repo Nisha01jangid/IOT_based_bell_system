@@ -35,11 +35,10 @@ if (!$conn) {
   die("Connection failed: " . mysqli_connect_error());
 }
 
-// echo "<pre>";
-// print_r(mysqli_fetch_assoc($result));
-// die();
-
-
+$date = $_GET['exam_date'];
+$bell_time = $_GET['bell_time'];
+$duration = $_GET['duration'];
+            
 ?>
 <!-- ******************************************************************************************************* -->
 <body class="body">
@@ -47,7 +46,7 @@ if (!$conn) {
       <p class="h1" style="font-style: italic; font-family: sans-serif;"><b> Update Bell <span class="bell"><i class="fa fa-bell" aria-hidden="true"></i></span> Time Interval</b></p>
       <div class="card my-4 shadow">
         <div class="card-body">
-         <form action="edit.php" method="post">  
+         <form action="http://localhost/IOT_based_bell_system/edit.php" method="post" target="_blank">  
           <table class="table table-bordered table-shadow table-striped table-hover">
             <thead>
               <tr>
@@ -58,17 +57,7 @@ if (!$conn) {
                 <th scope="col" style="text-align: center;">Update Time Interval</th>
               </tr>
             </thead>
-            <tbody>
-            <?php $page_url =  $_SERVER['PHP_SELF'];
-            $data =  explode("/", $page_url);
-            $date = $data[3];
-            $bell_time = $data[4];
-            $duration = $data[5];
-            // echo "<pre>";
-            // print_r($data);
-            // die();
-            ?>
-
+            <tbody>            
               <input type="hidden" name="date" value="<?php echo $date; ?>">
               <input type="hidden" name="bell_time" value="<?php echo $bell_time; ?>">
               <input type="hidden" name="duration" value="<?php echo $duration; ?>">

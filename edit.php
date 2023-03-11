@@ -12,6 +12,7 @@ if (!$conn) {
   die("Connection failed: " . mysqli_connect_error());
 }
 
+
 if($_SERVER['REQUEST_METHOD'] == 'POST'){
     $bell = $_POST['time_interval'];
     $date = $_POST['date'];
@@ -31,5 +32,6 @@ if (mysqli_query($conn, $sql)) {
   echo "Error updating record: " . mysqli_error($conn);
 }
 
+header("Location: view_time_interval.php");
 
 ?>
