@@ -19,9 +19,17 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
   $exam_date = $_POST['date'];
   $time_intervals = $_POST['field'];
  $bell_duration = $_POST['duration'];
-  echo "<br>";
+
+// $data =  explode(":", $time_intervals[0]);
+// $date = $data[0];
+// $bell_time = $data[1];
+// $duration = $data[2];
+// $a = $bell_duration[0];
+// $end_time = $duration + $bell_duration; 
   // echo "<pre>";
-  // print_r($bell_duration);
+  // print_r($data);
+  // echo "<br>";
+  // print_r($end_time);
   // echo "<br>";
 }
 // $bell_duration = 10;
