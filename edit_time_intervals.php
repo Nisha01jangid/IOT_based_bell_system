@@ -46,7 +46,7 @@ $duration = $_GET['duration'];
       <p class="h1" style="font-style: italic; font-family: sans-serif;"><b> Update Bell <span class="bell"><i class="fa fa-bell" aria-hidden="true"></i></span> Time Interval</b></p>
       <div class="card my-4 shadow">
         <div class="card-body">
-         <form action="http://localhost/IOT_based_bell_system/edit.php" method="post" target="_blank">  
+         <form action="http://localhost/Bell_System/edit.php" method="post" target="_blank">  
           <table class="table table-bordered table-shadow table-striped table-hover">
             <thead>
               <tr>
@@ -68,7 +68,7 @@ $duration = $_GET['duration'];
                 <td style="text-align: center;"><?php  echo $duration; ?></td>
                 
                 <td align="center">
-                   <input type="time" name="time_interval" id="field" class="form-control"/>
+                   <input type="time" name="time_interval" id="field" class="form-control" step="1"/>
                 </td>
 
               </tr>

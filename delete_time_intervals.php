@@ -27,5 +27,5 @@ if (mysqli_query($conn, $sql)) {
   echo "Error deleting record: " . mysqli_error($conn);
 }
 
-header("Location: view_time_interval.php");
+header("Location: http://localhost/Bell_System/view_time_interval.php");
 ?>
