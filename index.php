@@ -19,35 +19,28 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
   $exam_date = $_POST['date'];
   $time_intervals = $_POST['field'];
  $bell_duration = $_POST['duration'];
-
-// $data =  explode(":", $time_intervals[0]);
-// $date = $data[0];
-// $bell_time = $data[1];
-// $duration = $data[2];
-// $a = $bell_duration[0];
-// $end_time = $duration + $bell_duration; 
   // echo "<pre>";
   // print_r($data);
   // echo "<br>";
-  // print_r($end_time);
-  // echo "<br>";
+  //  print_r($end_time);
+  // die();
 }
-// $bell_duration = 10;
-// echo "<pre>";
-// print_r($time_intervals);
-// die();
-  
-$length = sizeof($time_intervals);
-// echo $length;
-// die();
 
-// $ip_address = getenv("REMOTE_ADDR") ;
-//  print_r( $ip_address);
-//  die();
+$length = sizeof($time_intervals);
+
 for($i = 0; $i < $length; $i++){
   
   $interval = $time_intervals[$i];
   $duration = $bell_duration[$i];
+
+  // $data =  explode(":", $interval);
+  // $hour = $data[0];
+  // $minute = $data[1];
+  // $second = $data[2];
+  // $a = $bell_duration[0];
+  // $end = $second + $a;
+  // $end_time = $hour.":".$minute.":".$end;
+   
 
   $sql = "INSERT INTO time_intervals (exam_date, bell_time, duration)
   VALUES ('$exam_date', '$interval', $duration)";
