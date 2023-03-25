@@ -68,7 +68,7 @@ $duration = $_GET['duration'];
                 <td style="text-align: center;"><?php  echo $duration; ?></td>
                 
                 <td align="center">
-                   <input type="time" name="time_interval" id="field" class="form-control" step="1"/>
+                   <input type="time" name="time_interval" id="field" class="form-control"/>
                 </td>
 
               </tr>

@@ -18,13 +18,18 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
     $date = $_POST['date'];
     $bell_time = $_POST['bell_time'];
     $duration = $_POST['duration'];
+    if($duration == 1 || $duration == 2 || $duration == 3 || $duration == 4 ||$duration == 5 ||$duration == 6 || $duration == 7 || $duration == 8 || $duration == 9){
+      $duration = "0".$duration;
+    }
+    $end_time = $bell.":".$duration;
+    $bell = $bell.":00";
     
 // echo "<pre>";
 // print_r($_POST);
 // die();
 }
 
-$sql = "UPDATE time_intervals SET bell_time =  '$bell' WHERE exam_date = '$date' and bell_time = '$bell_time' and duration = $duration";
+$sql = "UPDATE time_intervals SET bell_time =  '$bell', end_time = '$end_time' WHERE exam_date = '$date' and bell_time = '$bell_time' and duration = $duration";
 
 if (mysqli_query($conn, $sql)) {
   echo "Record updated successfully";
