@@ -12,11 +12,15 @@ if (!$conn) {
   die("Connection failed: " . mysqli_connect_error());
 }
 
-$page_url =  $_SERVER['PHP_SELF'];
-$data =  explode("/", $page_url);
-$date = $data[3];
-$bell_time = $data[4];
-$duration = $data[5];
+// $page_url =  $_SERVER['PHP_SELF'];
+// $data =  explode("/", $page_url);
+// $date = $data[3];
+// $bell_time = $data[4];
+// $duration = $data[5];
+
+$date = $_GET['exam_date'];
+$bell_time = $_GET['bell_time'];
+$duration = $_GET['duration'];
 
 $sql = "DELETE FROM time_intervals WHERE exam_date = '$date' and bell_time = '$bell_time' and duration = $duration";
 // print_r($sql);

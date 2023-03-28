@@ -74,7 +74,7 @@ $result = mysqli_query($conn, $sql);
                 <td style="text-align: center;"><?php  echo $row['duration']; ?></td>
                 <td align="center">
                     <a href="<?php echo "edit_time_intervals.php/?exam_date=".$row['exam_date']."&bell_time=".$row['bell_time']."&duration=".$row['duration']; ?>" class="btn btn-warning">Edit</a>&nbsp; 
-                    <a href="delete_time_intervals.php/<?php echo $row['exam_date']."/".$row['bell_time']."/".$row['duration']; ?>" class="btn btn-danger">Delete</a> 
+                    <a href="<?php echo "delete_time_intervals.php/?exam_date=".$row['exam_date']."&bell_time=".$row['bell_time']."&duration=".$row['duration']; ?>" class="btn btn-danger">Delete</a> 
                 </td>
               </tr>
                <?php $i++; }
