@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 25, 2023 at 03:20 AM
+-- Generation Time: Apr 13, 2023 at 06:13 AM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 8.1.6
 
@@ -20,6 +20,49 @@ SET time_zone = "+00:00";
 --
 -- Database: `bell_system`
 --
+
+DELIMITER $$
+--
+-- Procedures
+--
+CREATE DEFINER=`root`@`localhost` PROCEDURE `bellOFF` ()   BEGIN
+UPDATE bell_system.ring SET ring.status = 0 WHERE ring.device='D1' AND EXISTS(SELECT time_intervals.end_time FROM bell_system.time_intervals WHERE exam_date = CURRENT_DATE AND time_intervals.end_time=CURRENT_TIME);
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `bellON` ()  NO SQL BEGIN
+UPDATE bell_system.ring SET ring.status = 1 WHERE ring.device='D1' AND EXISTS(SELECT time_intervals.bell_time FROM bell_system.time_intervals WHERE exam_date = CURRENT_DATE AND time_intervals.bell_time=CURRENT_TIME);
+END$$
+
+--
+-- Functions
+--
+CREATE DEFINER=`root`@`localhost` FUNCTION `bell1` () RETURNS INT(10) UNSIGNED  BEGIN
+DECLARE x INT;
+SET x = (SELECT time_intervals.duration FROM bell_system.time_intervals WHERE exam_date = CURRENT_DATE);
+UPDATE bell_system.ring SET ring.status = 1 WHERE ring.device='D1';
+RETURN x;
+END$$
+
+DELIMITER ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ring`
+--
+
+CREATE TABLE `ring` (
+  `id` int(11) NOT NULL,
+  `device` varchar(10) NOT NULL,
+  `status` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `ring`
+--
+
+INSERT INTO `ring` (`id`, `device`, `status`) VALUES
+(1, 'D1', 0);
 
 -- --------------------------------------------------------
 
@@ -41,13 +84,18 @@ CREATE TABLE `time_intervals` (
 --
 
 INSERT INTO `time_intervals` (`id`, `exam_date`, `bell_time`, `duration`, `end_time`, `timestamp`) VALUES
-(1, '2023-03-25', '20:00:00', 10, '20:00:10', '2023-03-25 02:13:08'),
-(2, '2023-03-26', '12:30:00', 10, '12:30:10', '2023-03-25 02:17:33'),
-(3, '2023-03-26', '20:00:00', 5, '20:00:05', '2023-03-25 02:17:33');
+(5, '2023-03-26', '10:00:00', 5, '10:00:05', '2023-03-26 08:21:52'),
+(6, '2023-03-28', '23:04:00', 5, '23:04:05', '2023-03-28 14:09:11');
 
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `ring`
+--
+ALTER TABLE `ring`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `time_intervals`
@@ -60,10 +108,26 @@ ALTER TABLE `time_intervals`
 --
 
 --
+-- AUTO_INCREMENT for table `ring`
+--
+ALTER TABLE `ring`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
 -- AUTO_INCREMENT for table `time_intervals`
 --
 ALTER TABLE `time_intervals`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+DELIMITER $$
+--
+-- Events
+--
+CREATE DEFINER=`root`@`localhost` EVENT `Ringing Bell1` ON SCHEDULE EVERY 1 SECOND STARTS '2023-03-11 14:13:30' ENDS '2025-08-30 14:13:30' ON COMPLETION NOT PRESERVE ENABLE DO CALL bellON$$
+
+CREATE DEFINER=`root`@`localhost` EVENT `Ringing bell2` ON SCHEDULE EVERY 1 SECOND STARTS '2023-03-11 15:15:15' ENDS '2024-02-29 15:15:15' ON COMPLETION NOT PRESERVE ENABLE DO CALL bellOFF$$
+
+DELIMITER ;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
